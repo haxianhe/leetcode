@@ -5,6 +5,6 @@
 计划每天刷一道题，看看能不能坚持下来！！！
 
 
-| 题目编号 | 题目名称 | PHP 版本代码 | Java 版本代码 | Go 版本代码 | 第一次 | 第二次 | 第三次 | 第四次 | 第五次 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 557 | [反转字符串中的单词 III](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/) | [PHP](https://github.com/haxianhe/leetcode/blob/main/php/Leetcode_557_ReverseWords.php) | Java | Go | [一刷](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/solution/phpban-ben-di-yi-ci-shua-ti-fan-zhuan-zi-ue92/) |  |  |  |  |
+| 题目编号 | 题目名称 | PHP | Java | Go | C | 一刷 | 二刷 | 三刷 | 四刷 | 五刷 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 557 | [反转字符串中的单词 III](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/) | [PHP](https://github.com/haxianhe/leetcode/blob/main/php/Leetcode_557_ReverseWords.php) |  |  |  | [一刷](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/solution/phpban-ben-di-yi-ci-shua-ti-fan-zhuan-zi-ue92/) |  |  |  |  |
