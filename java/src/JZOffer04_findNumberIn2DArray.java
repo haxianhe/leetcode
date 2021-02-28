@@ -6,7 +6,7 @@
  * @time 7:06 下午
  */
 
-class Solution {
+class JZOffer04_findNumberIn2DArray {
     public boolean findNumberIn2DArray(int[][] matrix, int target) {
         //参数校验
         if(matrix.length == 0){
