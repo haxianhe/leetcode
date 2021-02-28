@@ -8,6 +8,6 @@
 
 | 题目编号 | 题目名称 | PHP | Java | Go | C | 一刷 | 二刷 | 三刷 | 四刷 | 五刷 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 557 | [反转字符串中的单词 III](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/) | [完成](https://github.com/haxianhe/leetcode/blob/main/php/Leetcode_557_ReverseWords.php) |  |  |  | [完成](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/solution/phpban-ben-di-yi-ci-shua-ti-fan-zhuan-zi-ue92/) |  |  |  |  |
+| 557 | [反转字符串中的单词 III](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/) | [完成](https://github.com/haxianhe/leetcode/blob/main/php/Leetcode_557_ReverseWords.php) |  |  |  | ✅ |  |  |  |  |
 | |  |  |  |  |  |  |  |  |  |  |
-| 剑指 Offer 04 | [二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/) |  | [完成]() |  |  |  |  |  |  |  |
+| 剑指 Offer 04 | [二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/) |  | [完成](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/solution/jian-zhi-offer-04er-wei-shu-zu-zhong-de-1o7pg/) |  |  | ✅ |  |  |  |  |
