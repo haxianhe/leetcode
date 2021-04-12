@@ -1,3 +1,5 @@
+package com.haxianhe.leetcode.jzoffer;
+
 /**
  * Created by IDEA.
  *
@@ -6,7 +8,7 @@
  * @time 7:22 下午
  */
 
-public class JZOffer05_replaceSpace {
+public class ReplaceSpace {
     public String replaceSpace(String s) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < s.length(); i++){

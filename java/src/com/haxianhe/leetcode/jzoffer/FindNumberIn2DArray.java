@@ -1,3 +1,5 @@
+package com.haxianhe.leetcode.jzoffer;
+
 /**
  * Created by IDEA.
  *
@@ -6,7 +8,7 @@
  * @time 7:06 下午
  */
 
-class JZOffer04_findNumberIn2DArray {
+class FindNumberIn2DArray {
     public boolean findNumberIn2DArray(int[][] matrix, int target) {
         //参数校验
         if(matrix.length == 0){
