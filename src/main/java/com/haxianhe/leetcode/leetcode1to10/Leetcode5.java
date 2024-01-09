@@ -12,6 +12,6 @@ public class Leetcode5 {
      * @return
      */
     public String longestPalindrome(String s) {
-
+        return  "";
     }
 }
