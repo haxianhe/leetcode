@@ -43,8 +43,6 @@
   
 package com.haxianhe.leetcode.editor.cn;
 
-import com.haxianhe.leetcode.jzoffer.ListNode;
-
 public class RemoveNthNodeFromEndOfList{
   public static void main(String[] args) {
        Solution solution = new RemoveNthNodeFromEndOfList().new Solution();

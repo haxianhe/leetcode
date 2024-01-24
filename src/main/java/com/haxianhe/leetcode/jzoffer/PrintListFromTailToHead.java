@@ -11,20 +11,22 @@ package com.haxianhe.leetcode.jzoffer;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class PrintListFromTailToHead {
-    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
-        Stack<ListNode> stack = new Stack<ListNode>();
-        while (listNode != null) {
-            stack.push(listNode);
-            listNode = listNode.next;
-        }
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        while (!stack.empty()){
-            result.add(stack.pop().val);
-        }
+import com.haxianhe.leetcode.editor.cn.ListNode;
 
-        return result;
-    }
+public class PrintListFromTailToHead {
+//    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+//        Stack<ListNode> stack = new Stack<ListNode>();
+//        while (listNode != null) {
+//            stack.push(listNode);
+//            listNode = listNode.next;
+//        }
+//        ArrayList<Integer> result = new ArrayList<Integer>();
+//        while (!stack.empty()){
+//            result.add(stack.pop().val);
+//        }
+//
+//        return result;
+//    }
 }
 
 
