@@ -1,0 +1,36 @@
+暴力 拿一个数组，装所有结点的值，然后找两个指针，一前一后看是否相等。
+
+### 代码
+
+* java
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+       ArrayList<ListNode>nums=new ArrayList<>();
+        int i=0;
+        while(head!=null){
+            nums.add(head);
+            head=head.next;
+            i++;
+        }
+        for(int j=0;j<nums.size();j++){
+            if(nums.get(j).val!=nums.get(nums.size()-j-1).val){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+
