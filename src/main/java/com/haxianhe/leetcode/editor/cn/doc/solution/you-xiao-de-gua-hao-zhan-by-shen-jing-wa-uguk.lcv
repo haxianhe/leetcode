@@ -1,0 +1,40 @@
+* 
+
+```
+    public boolean isValid(String s) {
+       	Deque<Character> stack = new LinkedList<>();
+		char[] ss = s.toCharArray();
+		for (char c : ss) {
+			
+			if (stack.isEmpty()) {
+				if (c == ')' || c == ']' || c == '}') return false;
+			}
+			
+			if (c == '(' || c == '[' || c == '{') {
+				stack.push(c);
+			}
+			
+			if (!stack.isEmpty()) {
+
+				if (c == ')') {
+					if (stack.pop() != '(')
+						return false;
+					continue;
+				}else if (c == ']') {
+					if (stack.pop() != '[')
+						return false;
+					continue;
+				}else if (c == '}') {
+					if (stack.pop() != '{')
+						return false;
+					continue;
+				}
+			}
+		}
+		
+		if (!stack.isEmpty()) return false;
+		
+		return true;
+    }
+```
+

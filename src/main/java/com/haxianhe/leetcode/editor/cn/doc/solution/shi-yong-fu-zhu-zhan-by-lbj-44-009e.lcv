@@ -1,0 +1,46 @@
+### 解题思路
+
+此处撰写解题思路
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public boolean isValid(String s) {
+       //使用栈，每次对比栈顶元素是否和要push的元素成对==》成对则出栈
+       char[] chars = s.toCharArray();
+       Stack<Character> stack = new Stack();
+       stack.push(chars[0]);
+       for(int i=1;i<chars.length;i++){
+             if(!stack.empty() && compare(stack.peek(),chars[i])){
+                  stack.pop();
+             } else {
+                 stack.push(chars[i]);
+             }
+       }
+
+       if(stack.empty()){
+            return true;
+       } 
+
+        return false;
+    }
+
+    public boolean compare(char ch1,char ch2){
+          if(ch1=='(' && ch2==')'){
+                return true;
+          }
+          if(ch1=='{' && ch2=='}'){
+                return true;
+          }
+          if(ch1=='[' && ch2==']'){
+                return true;
+          }
+
+          return false;
+    }
+}      
+```
+
