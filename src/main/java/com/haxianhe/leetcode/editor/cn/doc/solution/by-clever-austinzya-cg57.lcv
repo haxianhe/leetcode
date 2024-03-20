@@ -1,0 +1,20 @@
+### 解题思路
+
+无情的API选手：Integer.bitCount(i)，统计二进制数中1的个数
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public int[] countBits(int n) {
+        int[] ans = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            ans[i] = Integer.bitCount(i);
+        }
+        return ans;
+    }
+}
+```
+
