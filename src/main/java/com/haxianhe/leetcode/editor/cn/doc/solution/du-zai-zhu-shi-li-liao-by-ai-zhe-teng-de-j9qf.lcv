@@ -1,0 +1,74 @@
+### 核心循环
+
+![leetcode-76 最小滑动窗口.png](https://pic.leetcode-cn.com/1621853095-oVBhKN-leetcode-76%20%E6%9C%80%E5%B0%8F%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png)
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public String minWindow(String s, String t) {
+               String res = "";
+        int sLength;
+        // 需要匹配子串的长度；
+        int tLength;
+
+        if (s == null || t == null || (sLength = s.length()) == 0 ||
+                (tLength = t.length()) == 0 || sLength < tLength) {
+            return res;
+        }
+        // 目标数量；
+        int targetCount = tLength;
+        // t 中，每个字符出现的次数
+        int[] needs = new int[128];
+        // 统计滑动窗口中每个字符出现次数
+        int[] window = new int[128];
+        for (char c : t.toCharArray()) {
+            needs[c]++;
+        }
+        int left = 0;
+        int right = 0;
+        int count = 0;
+        int minLength = sLength + 1;
+
+        while (right < sLength) {
+            char currChar = s.charAt(right);
+            // s字符串中，每个字符出现的频率
+            window[currChar]++;
+            
+            // 如果需要该字符，并且窗口内的字符个数小于需要的字符个数
+            // 1：need 中，当前字符出现的频率是否大于0；
+            // 2: 当前字符currChar 在needs中出现的频率大于或者等于window 出现的频率
+            if (needs[currChar] > 0 && needs[currChar] >= window[currChar]) {
+                count++;
+            }
+
+            //当累计的数量与target:s 的size  ，right不动，left开始往右边收缩，主要靠left++ 完成
+
+            while (count == targetCount) {
+                // 获取最左边的字符
+                currChar = s.charAt(left);
+                // 当需要删除的字符串，是必须留在窗口时
+                if (needs[currChar] > 0 && needs[currChar] >= window[currChar]) {
+                    count--;
+                }
+                // 如果出现了最小值，就做一个替换操作
+                if (minLength > right - left + 1) {
+                    minLength = right - left + 1;
+                    res = s.substring(left, right + 1);
+                }
+
+                window[currChar]--;
+                // left 右移一位
+                left++;
+            }
+            
+            //right 右移
+            right++;
+        }
+        return res;
+    }
+}
+```
+

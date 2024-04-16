@@ -1,0 +1,95 @@
+> Problem: [76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring/description/)
+
+[TOC]
+
+# 思路
+
+1.初始化两个哈希表：一个用于记录字符串t中每个字符的出现次数，另一个用于记录当前窗口中各字符的出现次数。
+
+2.初始化两个指针：left和right分别表示滑动窗口的左右边界，初始时都指向s的开始位置。
+
+3.扩展右边界：移动right指针扩展窗口，直到窗口中包含了t中所有字符的足够数量。每次移动时，更新当前窗口中字符的出现次数，并检查是否满足覆盖条件。
+
+4.收缩左边界：一旦找到一个满足条件的窗口，尝试通过移动left指针来收缩窗口的大小，同时保持窗口满足条件。这一步是为了找到可能的最小覆盖子串。每次移动时，更新当前窗口中字符的出现次数，并重新检查覆盖条件。
+
+5.更新结果：在每次找到满足条件的窗口后，比较并更新最小覆盖子串的长度和起始位置。
+
+重复步骤3-5，直到right指针到达字符串s的末尾。
+
+# 复杂度
+
+时间复杂度:
+$O(m+n)$
+
+空间复杂度:
+
+> $O(1)$
+
+# Code
+
+* []
+
+```Java
+class Solution {
+    public String minWindow(String s, String t) {
+        if(s == null || t == null || s.length() < t.length() ) {
+            return "";
+        }
+
+        char[] schar = s.toCharArray();
+        char[] tchar = t.toCharArray();
+
+        // 记录t中每个字符出现的次数
+        int[] need = new int[128];
+        // 记录窗口中每个字符出现的次数
+        int[] window = new int[128];
+        // 统计t的字符出现的次数
+        for(int i=0;i<tchar.length;i++) {
+            need[tchar[i]]++;
+        }
+        int valid = 0; // 记录t中不同字符的数量
+        for(int i : need) {
+            if(i>0) {
+                valid++;
+            }
+        }
+        int left = 0, right = 0;
+        int count = 0; // 用于记录需匹配的字符数的变量
+        int start = 0; int minLength = Integer.MAX_VALUE;
+        // 滑动窗口
+        while(right < schar.length) {
+            char c = schar[right];
+            // 当遇到t中字符时
+            if(need[c] > 0) {
+                // 更新窗口的数组
+                window[c]++;
+                if(window[c] == need[c]) {
+                    count++;
+                }
+            }
+            // 右移窗口
+            right++;
+
+            // 当窗口内包含所有t中的符数时，缩小左边界
+            while(count == valid) {
+                // 更新最小覆盖字串
+                if(right - left < minLength) {
+                    start = left;
+                    minLength = right - left;
+                }
+                char d = schar[left];
+                if(need[d] > 0) {
+                    if(window[d] == need[d]) {
+                        count--;
+                    }
+                    window[d]--;
+                }
+                left++;
+            }
+        }
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(start,start+minLength);
+
+    }
+}
+```
+

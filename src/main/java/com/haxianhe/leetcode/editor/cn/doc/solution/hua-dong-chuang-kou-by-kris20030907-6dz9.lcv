@@ -1,0 +1,56 @@
+> Problem: [76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring/description/)
+
+[TOC]
+
+# 思路
+
+第一次做的时候搞不懂为什么这么做，现在第二次好像有点想法了，希望下次能做对
+
+# Code
+
+* []
+
+```Java
+class Solution {
+    public String minWindow(String s, String t) {
+        //1. 初始化
+        int[] map = new int[128];       //用map或者128大小的数组都行，后者更快
+        int l = 0, r = 0;
+        int ansL = 0, ansR = 0;
+
+        int needCnt = t.length();     //之所以设置这个标记，主要是为了快速判断当前窗口能否包含t子串。否则得遍历整个map数组各个位是否小于等于0
+        int ans = Integer.MAX_VALUE;
+        //2. 记录t需要的字符个数
+        for(char c : t.toCharArray()) map[c]++;
+
+        //3. 求解最小满足条件的子串长度
+        while(r < s.length()){
+            char c = s.charAt(r); 
+            if(map[c] > 0) {  //当前字符必须可用才能更新计数
+                needCnt--;
+            }
+            //不管是不是目标字符都需要用掉，且r往后走
+            map[c]--;
+            r++;
+            
+            while(needCnt == 0){      //当前目标子串t的所有字符都匹配完了
+                //计算最小值
+                if(r - l < ans){
+                    ans = r - l;
+                    ansL = l;
+                    ansR = r;
+                }
+                //上面的不一定最小，需要把前面的字符依次去掉，当窗口不能满足需求之后，再让r往后走找到更小长度的满足要求的子串
+                char leftChar = s.charAt(l);
+                map[leftChar]++;
+                if (map[leftChar] > 0) { // 如果这个字符是所需的，窗口不再满足条件
+                    needCnt++;
+                }
+                l++; // 收缩窗口
+            }
+        }
+        return ans == Integer.MAX_VALUE ? "":s.substring(ansL, ansR);
+    }
+}
+```
+

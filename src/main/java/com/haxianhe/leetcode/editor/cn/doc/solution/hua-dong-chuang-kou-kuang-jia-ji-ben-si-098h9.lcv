@@ -1,0 +1,122 @@
+> Problem: [76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring/description/)
+
+[TOC]
+
+# 思路
+
+> 字符串子串问题：哈希表 + 滑动窗口
+
+滑动窗口算法的思路是这样：
+
+1、我们在字符串 S 中使用双指针中的左右指针技巧，初始化 left = right = 0，把索引左闭右开区间 [left, right) 称为一个「窗口」。
+
+提示
+
+理论上你可以设计两端都开或者两端都闭的区间，但设计为左闭右开区间是最方便处理的。因为这样初始化 left = right = 0 时区间 [0, 0) 中没有元素，但只要让 right 向右移动（扩大）一位，区间 [0, 1) 就包含一个元素 0 了。如果你设置为两端都开的区间，那么让 right 向右移动一位后开区间 (0, 1) 仍然没有元素；如果你设置为两端都闭的区间，那么初始区间 [0, 0] 就包含了一个元素。这两种情况都会给边界处理带来不必要的麻烦。
+
+2、我们先不断地增加 right 指针扩大窗口 [left, right)，直到窗口中的字符串符合要求（包含了 T 中的所有字符）。
+
+3、此时，我们停止增加 right，转而不断增加 left 指针缩小窗口 [left, right)，直到窗口中的字符串不再符合要求（不包含 T 中的所有字符了）。同时，每次增加 left，我们都要更新一轮结果。
+
+4、重复第 2 和第 3 步，直到 right 到达字符串 S 的尽头。
+
+这个思路其实也不难，第 2 步相当于在寻找一个「可行解」，然后第 3 步在优化这个「可行解」，最终找到最优解，也就是最短的覆盖子串。左右指针轮流前进，窗口大小增增减减，窗口不断向右滑动，这就是「滑动窗口」这个名字的来历。
+
+# 解题方法
+
+> s(source)字符串 t(target) 字符串 俩哈希表分别对应俩窗口
+> 一个window 对应要操作的窗口 在s上滑动窗口
+> 一个need 对应要匹配的窗口条件 把t填入need窗口
+
+1. 首先把条件填到need窗口里
+2. 然后循环遍历 结束条件是 right < s.length()
+3. 然后开始扩大窗口，注意我们的区间是左闭右开（left=0，right=0）；在扩大的时候考虑什么时候把当前元素c 填入window窗口里，以及填入的时候判断“有效”的情况valid
+4. 之后思考什么时候缩小窗口，以及缩小时要做的操作.**(特别注意当用到条件`right-left >= t.length()`的时候切记不可以把`t.length()`换成`need.size()` 因为当t字符串里有相同的字符时，二者的长度是不相等的！)**
+
+1、什么时候应该移动 right 扩大窗口？窗口加入字符时，应该更新哪些数据？
+
+2、什么时候窗口应该暂停扩大，开始移动 left 缩小窗口？从窗口移出字符时，应该更新哪些数据？
+
+3、我们要的结果应该在扩大窗口时；还是缩小窗口时进行更新（76、567、438）；还是在缩小窗口之后更新（3、904）？
+
+如果一个字符进入窗口，应该增加 window 计数器；如果一个字符将移出窗口的时候，应该减少 window 计数器；当 valid 满足 need 时应该收缩窗口；应该在收缩窗口的时候更新最终结果。
+
+# 复杂度
+
+时间复杂度:
+
+> 添加时间复杂度, 示例： $O(n)$
+
+空间复杂度:
+
+> 添加空间复杂度, 示例： $O(n)$
+
+# Code
+
+* []
+
+```Java
+class Solution {
+    public String minWindow(String s, String t) {
+        HashMap<Character,Integer> need = new HashMap<>();
+        HashMap<Character,Integer> window = new HashMap<>();
+
+        // 把need窗口填上t字符串，作为下面检查是否满足的条件
+        for (char c : t.toCharArray()) {
+            need.put(c,need.getOrDefault(c,0) + 1);
+        }
+
+        int left = 0, right = 0; // 定义左右窗口边界
+        int valid = 0; // 定义window窗口里符合need窗口里条件的元素 有效数
+
+        int start = 0;
+        int len = Integer.MAX_VALUE;
+
+        while (right < s.length()) {// 遍历s字符串，直到window窗口右边界到达终点结束
+            
+            
+
+            // 扩大后往窗口里添加元素，因为窗口的定义是左闭右开的
+            // 什么时候向window里添加？  满足题意条件的时候:need包含当前字符c的时候
+            char c = s.charAt(right);
+            if (need.containsKey(c)) {
+                window.put(c,window.getOrDefault(c,0) + 1);
+
+                // 添加之后还要判断，当前window窗口里有效的个数。
+                if (window.get(c).equals(need.get(c))) {
+                    valid++;
+                }
+            }
+            right++; // 扩大window 
+            
+            // 什么时候window窗口缩小？ 题意：当有效个数valid==need的窗口大小时
+            while (valid == need.size()) {
+                
+
+                // 缩小时保留满足条件最小的窗口信息，所以如果有更小的就要更新窗口的起始位置和当前窗口的长度
+                if (right - left < len){
+                    start = left;
+                    len = right - left;
+                    
+                }
+
+                char d = s.charAt(left);
+                //缩小窗口要做的操作：看要删除的元素是否在need里 如果在的话要判断valid是否-1
+                if (need.containsKey(d)) {
+                    if (need.get(d).equals(window.get(d))) {
+                        valid--;
+                    }
+
+                    // 不管need里有没有都要是window里d的值-1，因为此时改元素已经再窗口外了
+                    window.put(d, window.get(d) - 1); 
+                }
+
+                left++; // 缩小window
+            }
+        }
+        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+
+    }
+}
+```
+

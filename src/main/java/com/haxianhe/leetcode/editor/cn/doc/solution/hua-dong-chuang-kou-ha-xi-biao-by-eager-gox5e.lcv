@@ -1,0 +1,64 @@
+> Problem: [76. 最小覆盖子串](https://leetcode.cn/problems/minimum-window-substring/description/)
+
+[TOC]
+
+# 思路
+
+> 滑动窗口，两个哈希表，一个记录所需要的信息，一个记录窗口内的信息。当右指针移动到满足need表的程度，就移动左指针，直到不满足为止，记录答案。
+
+# 解题方法
+
+> 滑动窗口+哈希表
+
+# 复杂度
+
+时间复杂度:
+
+> 添加时间复杂度, 示例： $O(n)$
+
+空间复杂度:
+
+> 添加空间复杂度, 示例： $O(n)$
+
+# Code
+
+* []
+
+```C++
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        map<char,int>need,window;
+        for(auto c:t)need[c]++;
+        int l=0,r=0;
+        int v=0;
+        int start=0,len=INT_MAX;
+        while(r<s.size()){
+            char c=s[r];
+            r++;
+            if(need.count(c)){
+                window[c]++;
+                if(window[c]==need[c]){
+                    v++;
+                }
+            }
+            while(v==need.size()){
+                if(r-l<len){
+                    start=l;
+                    len=r-l;
+                }
+                char d=s[l];
+                l++;
+                if(need.count(d)){
+                    if(need[d]==window[d]){
+                        v--;
+                    }
+                     window[d]--;
+                }
+            }
+        }
+        return len==INT_MAX?"":s.substr(start,len);
+    }
+};
+```
+
