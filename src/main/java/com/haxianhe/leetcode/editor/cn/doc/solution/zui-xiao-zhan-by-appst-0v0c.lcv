@@ -1,0 +1,100 @@
+> Problem: [155. 最小栈](https://leetcode.cn/problems/min-stack/description/)
+
+[TOC]
+
+# 思路
+
+这个题的关键在于要实时记录当前栈中的最小元素，如果我们只用一个变量来保存当前栈的最小值，在有些情况会导致逻辑错误，比如，新增元素入栈时可以与当前的最小值变量比较一下并更新，没有问题，但是出栈呢？如果当前出栈的元素就是最小值，那么此时的最小值变量应该更新为什么值？我们并不知道倒数第二小的值是什么。
+
+为了解决这个问题，我们必须用类似于数组的数据结构来记录一下栈的每个阶段的最小值，如果栈的出栈元素与当前的最小值相同，那就把当前最小值更新为上一个阶段的最小值，什么样的数据结构适合我们更新最小值呢？当然也是栈，这样更新最小值的操作就简化为出栈了。
+
+这个方法也叫辅助栈法，辅助栈中的栈顶元素一定是最小元素，但是栈顶下一个元素不一定是第二个最小元素哈，如下图所示：
+
+![image.png](https://pic.leetcode.cn/1710561487-fEMHKv-image.png)
+
+当元素5入栈时，辅助栈并没有加入元素5，但是真正的栈中已经放入元素5了，此时的第二个最小元素是5，而不是6。
+
+不过，这并不会影响我们更新最小值，当我们pop()后，5会先出去，不会与6争抢老二的位置。
+
+# 复杂度
+
+时间复杂度: $O(n)$
+
+# Code
+
+* []
+
+```Java
+class MinStack {
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
+
+    public MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+    
+    public void push(int val) {
+        stack.push(val);
+        
+        if (minStack.isEmpty() || minStack.peek() >= val) {
+            minStack.push(val);
+    }
+    
+    public void pop() {
+        int val = stack.pop();
+        if (val == minStack.peek())
+            minStack.pop();
+        // 注意，不能写成stack.pop() == minStack.peek()
+        // 这里Integer不会自动拆箱，比较的是对象
+    }
+    
+    public int top() {
+        return stack.peek();
+    }
+    
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+```
+
+# 问题
+
+我之前想用最小堆来实现，但始终有5个测试用例通过不了，评论区来个高手帮我一下，代码如下：
+
+* []
+
+```java
+class MinStack {
+    Stack<Integer> stack;
+    PriorityQueue<Integer> pq;
+
+    public MinStack() {
+        stack = new Stack<>();
+        pq = new PriorityQueue<>((a, b) -> (a - b));
+    }
+
+    public void push(int val) {
+        stack.push(val);
+        
+        if (pq.size() == 0 || pq.peek() >= val)
+            pq.offer(val);    
+    }
+
+    public void pop() {
+        int val = stack.pop();
+        if (val == pq.peek())
+            pq.poll();
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        return pq.peek();
+    }
+}
+```
+
